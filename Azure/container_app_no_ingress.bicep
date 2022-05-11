@@ -46,5 +46,3 @@ resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' ={
     }
   }
 }
-
-output fqdn string = containerApp.properties.configuration.ingress.fqdn
