@@ -40,7 +40,7 @@ var shared_config = [
 var client_config = [
   {
     name: 'SERVICE_ENDPOINT'
-    value: 'http://${service.outputs.fqdn}:80'
+    value: 'http://${service.outputs.fqdn}'
   }
 ]
 
