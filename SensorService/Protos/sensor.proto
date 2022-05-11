@@ -1,0 +1,22 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Sensors";
+
+package sensor;
+
+service SensorTwin {
+  rpc ReceiveValueFromTwin (ReceiveValueFromTwinRequest) returns (ReceivedValueFromTwinReply);
+  rpc GetDeviceTwinStream (google.protobuf.Empty) returns (stream ReceivedValueFromTwinReply);
+}
+
+message ReceiveValueFromTwinRequest {
+  string sensor = 1;
+  double value = 2;
+}
+
+message ReceivedValueFromTwinReply {
+  string message = 1;
+  string sensor = 2;
+  double value = 3;
+}
