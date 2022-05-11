@@ -61,7 +61,7 @@ module service 'container_app.bicep' = {
 }
 
 // create the worker container app
-module worker 'container_app.bicep' = {
+module worker 'container_app_no_ingress.bicep' = {
   name: 'worker'
   params: {
     name: 'worker'
@@ -71,7 +71,6 @@ module worker 'container_app.bicep' = {
     containerAppEnvironmentId: env.outputs.id
     registry: acr.name
     envVars: union(shared_config, client_config)
-    externalIngress: false
   }
 }
 
