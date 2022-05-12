@@ -149,9 +149,11 @@ Once the new revision is provisioned, you should see additional charts appear in
 
 The application is instrumented with Azure Application Insights, and the Azure Container Apps environment has a Log Analytics dependency, so you can easily deep-dive into the logs from the application. 
 
-
+![Application logs in Log Analytics.](docs/media/logs.png)
 
 You can also use the Application Insights Application Map to see a high-level overview of all the nodes and containers in the application, and to see how messages are being transmitted between each container through the Azure Container Apps environment. 
+
+![Application Map for the workers and gRPC service.](docs/media/appmap.png)
 
 ## Summary
 
