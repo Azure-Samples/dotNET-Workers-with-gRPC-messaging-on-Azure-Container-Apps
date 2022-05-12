@@ -111,13 +111,13 @@ With the projects deployed to Azure, you can now test the app to make sure it wo
 The `deploy` CI/CD process creates a series of resources in your Azure subscription. These are used primarily for hosting the project code, but there's also a few additional resources that aid with monitoring and observing how the app is running in the deployed environment. 
 | Resource         | Resource Type             | Purpose                                                      |
 | ---------------- | ------------------------- | ------------------------------------------------------------ |
-| <prefix>grpcai   | Application Insights      | This provides telemetry about the application's execution, and stores traces, logs, and exception data captured by the Application Insights SDK. |
+| `prefix`grpcai   | Application Insights      | This provides telemetry about the application's execution, and stores traces, logs, and exception data captured by the Application Insights SDK. |
 | frontend         | Container App             | Hosts the container with the code for the frontend Blazor server application that receives streaming data from the gRPC service. |
 | service          | Container App             | Hosts the container with the code for the gRPC service that both receives requests from the individual Worker services and provides streaming data about the status of the individual workers. |
 | worker           | Container App             | Hosts the container(s) with the code for the Worker Service that sends messages representing sensor data pings (like temperature sensors or light sensors). |
-| <prefix>grpcenv  | Container App Environment | The Azure Container App Environment, in which all of the container apps running can communicate with one another relatively openly. |
-| <prefix>grpcacr  | Azure Container Registry  | The container registry into which all of my application's microservices are published and stored prior to their being deployed as Azure Container Apps. |
-| <prefix>grpclogs | Log Analytics             | A Log Analytics account, which provides container logs for all of the container app running in my container app environment. This is where you'll look for most `ILogger<T>` log output using [Kusto](https://docs.microsoft.com/azure/data-explorer/kusto/query/). |
+| `prefix`grpcenv  | Container App Environment | The Azure Container App Environment, in which all of the container apps running can communicate with one another relatively openly. |
+| `prefix`grpcacr  | Azure Container Registry  | The container registry into which all of my application's microservices are published and stored prior to their being deployed as Azure Container Apps. |
+| `prefix`grpclogs | Log Analytics             | A Log Analytics account, which provides container logs for all of the container app running in my container app environment. This is where you'll look for most `ILogger<T>` log output using [Kusto](https://docs.microsoft.com/azure/data-explorer/kusto/query/). |
 
 The resources are shown here in the Azure portal:
 
