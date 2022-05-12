@@ -27,9 +27,15 @@ namespace Microsoft.Extensions.DependencyInjection
 
     public static class ServiceCollectionExtensions
     {
-        public static void AddApplicationMonitoring(this IServiceCollection services)
+        public static void AddWebApplicationMonitoring(this IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry();
+            services.AddSingleton<ITelemetryInitializer, ApplicationMapNodeNameInitializer>();
+        }
+
+        public static void AddWorkerApplicationMonitoring(this IServiceCollection services)
+        {
+            services.AddApplicationInsightsTelemetryWorkerService();
             services.AddSingleton<ITelemetryInitializer, ApplicationMapNodeNameInitializer>();
         }
     }

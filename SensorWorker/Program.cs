@@ -4,7 +4,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<Worker>();
-        services.AddApplicationMonitoring();
+        services.AddWorkerApplicationMonitoring();
     })
     .Build();
 
