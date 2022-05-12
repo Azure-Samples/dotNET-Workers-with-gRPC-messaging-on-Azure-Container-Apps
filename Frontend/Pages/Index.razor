@@ -1,0 +1,80 @@
+﻿@page "/"
+@using Google.Protobuf.WellKnownTypes
+@using Grpc.Core
+@using Sensors
+@inject IConfiguration Configuration;
+
+<PageTitle>Index</PageTitle>
+
+<MudStack>
+    @foreach (var sensorValue in SensorValues)
+    {
+        if (sensorValue.Series.First().Data.Length > 4)
+        {
+            <MudPaper Class="mx-4 pa-2">
+                <MudChart ChartType="ChartType.Line" ChartSeries="@sensorValue.Series" Width="100%" Height="350" ChartOptions="options"></MudChart>
+            </MudPaper>
+        }
+    }
+</MudStack>
+
+@code
+{
+    private ChartOptions options = new ChartOptions();
+
+    public record SensorValue(string Sensor)
+    {
+        public List<double> Values { get; set; } = new List<double>();
+        public List<ChartSeries> Series = new List<ChartSeries>();
+    }
+
+    private List<SensorValue> SensorValues { get; set; } = new List<SensorValue>();
+
+    protected override void OnInitialized()
+    {
+        options.InterpolationOption = InterpolationOption.NaturalSpline;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var sensorTwinClient = new Sensors.SensorTwin.SensorTwinClient(Grpc.Net.Client.GrpcChannel.ForAddress(Configuration.GetValue<string>("SERVICE_ENDPOINT")));
+            using var streamingResults = sensorTwinClient.GetDeviceTwinStream(new Empty());
+            try
+            {
+                await foreach (var result in streamingResults.ResponseStream.ReadAllAsync())
+                {
+                    if (SensorValues.Any(x => x.Sensor == result.Sensor))
+                    {
+                        var values = SensorValues.First(x => x.Sensor == result.Sensor).Values;
+                        if (values.Count >= 100)
+                        {
+                            values.RemoveAt(0);
+                        }
+                        SensorValues.First(x => x.Sensor == result.Sensor).Values.Add(result.Value);
+                        SensorValues.First(x => x.Sensor == result.Sensor).Series.First(x => x.Name == result.Sensor).Data =
+                            SensorValues.First(x => x.Sensor == result.Sensor).Values.ToArray();
+                    }
+                    else
+                    {
+                        var newSensor = new SensorValue(result.Sensor);
+                        newSensor.Values.Add(result.Value);
+                        newSensor.Series.Add(new ChartSeries
+                            {
+                                Name = result.Sensor,
+                                Data = newSensor.Values.ToArray()
+                            });
+                        SensorValues.Add(newSensor);
+                    }
+
+                    StateHasChanged();
+                }
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
+            {
+                Console.WriteLine("Stream cancelled.");
+            }
+        }
+    }
+}

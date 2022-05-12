@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>e9487957-8907-4473-9313-362f29e99775</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.45.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+		<PackageReference Include="MudBlazor" Version="6.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Monitoring\Monitoring.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="..\SensorService\Protos\sensor.proto" GrpcServices="Client">
+	    <Link>Protos\sensor.proto</Link>
+	  </Protobuf>
+	</ItemGroup>
+
+</Project>
