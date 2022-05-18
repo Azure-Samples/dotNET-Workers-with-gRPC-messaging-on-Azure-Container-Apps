@@ -11,7 +11,7 @@ env:
   RESOURCE_GROUP_NAME: sricontainerappsDemo
 
   # specify your preferred region
-  REGION: centralindia
+  REGION: eastus
 
   FRONTEND_DOCKER: Frontend/Dockerfile
   FRONTEND_IMAGE: frontend
