@@ -11,7 +11,7 @@ env:
   RESOURCE_GROUP_NAME: grpconaca
 
   # specify your preferred region
-  REGION: eastus
+  REGION: eastasia
 
   FRONTEND_DOCKER: Frontend/Dockerfile
   FRONTEND_IMAGE: frontend
