@@ -8,7 +8,7 @@ on:
 env:
   
   # alphanumeric string under 14 characters
-  RESOURCE_GROUP_NAME: demo_aca_gprc_rg
+  RESOURCE_GROUP_NAME: demoacagprc
 
   # specify your preferred region
   REGION: uaenorth
