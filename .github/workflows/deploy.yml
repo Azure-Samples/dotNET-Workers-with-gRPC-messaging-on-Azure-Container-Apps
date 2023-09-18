@@ -8,10 +8,10 @@ on:
 env:
   
   # alphanumeric string under 14 characters
-  RESOURCE_GROUP_NAME: grpconaca
+  RESOURCE_GROUP_NAME: demo_aca_gprc
 
   # specify your preferred region
-  REGION: eastus
+  REGION: uaenorth
 
   FRONTEND_DOCKER: Frontend/Dockerfile
   FRONTEND_IMAGE: frontend
