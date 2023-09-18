@@ -11,7 +11,7 @@ env:
   RESOURCE_GROUP_NAME: demoacagprc
 
   # specify your preferred region
-  REGION: uaenorth
+  REGION: eastus
 
   FRONTEND_DOCKER: Frontend/Dockerfile
   FRONTEND_IMAGE: frontend
